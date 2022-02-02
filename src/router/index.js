@@ -5,17 +5,27 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'frontLayout',
-      component: () => import('../views/frontLayout.vue'),
+      name: 'FrontLayout',
+      component: () => import('../views/FrontLayout.vue'),
       children: [
         {
           path: '',
           component: () => import('../views/front/Home.vue'),
         },
+      ],
+    },
+    {
+      path: '/admin',
+      name: 'AdminLayout',
+      component: () => import('../views/AdminLayout.vue'),
+      children: [
         {
-          path: 'about',
-          name: 'about',
-          component: () => import('../views/front/About.vue'),
+          path: 'login',
+          component: () => import('../views/admin/AdminLogin.vue'),
+        },
+        {
+          path: '',
+          component: () => import('../views/admin/AdminProducts.vue'),
         },
       ],
     },
