@@ -1,60 +1,48 @@
 <script>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 // eslint-disable-next-line no-unused-vars
-import Modal from 'bootstrap/js/dist/modal';
+// import Modal from 'bootstrap/js/dist/modal';
 import { apiMethod } from '@/methods/api.js';
-import ProductDetail from '@/components/ProductDetail.vue';
+import AdminProductEdit from '@/components/AdminProductEdit.vue';
 export default {
   components: {
-    ProductDetail,
+    AdminProductEdit,
   },
   setup() {
     const products = ref([]);
-    let productModal = ref(null);
+    const productModal = ref(null);
+    // let modal = null;
+    // const productModal = ref(new Modal(null));
+    // let productModal = ref(new Modal());
     // var myModal = new Modal(document.getElementById('exampleModal'));
-    // const modal = new Modal(productModal.value);
     let selectItem = ref({
-      id: '',
+      imagesUrl: [],
     });
-    let newProductData = {
-      title: '[賣]動物園造型衣服2',
-      category: '衣服2',
-      origin_price: 100,
-      price: 300,
-      unit: '個',
-      description: 'Sit down please 名設計師設計',
-      content: '這是內容',
-      is_enabled: 1,
-      imageUrl: '主圖網址',
-      imagesUrl: [
-        '圖片網址一',
-        '圖片網址二',
-        '圖片網址三',
-        '圖片網址四',
-        '圖片網址五',
-      ],
-    };
-    function clearItem(data) {
-      console.log(data);
-      selectItem.value = data;
+    let modalState = ref(null);
+    let modalOpen = ref(false);
+    function clearItem() {
+      modalOpen.value = false;
+      modalState.value = null;
+      selectItem.value = {
+        imagesUrl: [],
+      };
     }
-    function openProductDetail(itemId) {
-      const tempObj = products.value.find((item) => {
-        return item.id === itemId;
-      });
-      console.log(tempObj);
-      selectItem.value = JSON.parse(JSON.stringify(tempObj));
-      console.log(selectItem);
-    }
-    async function newProduct() {
-      await apiMethod.adminPostProduct(newProductData);
-      getProduct();
+    function openProductDetail(state, item) {
+      modalOpen.value = true;
+      modalState.value = state;
+      if (state === 'isNew') {
+        selectItem.value = {
+          imagesUrl: [],
+        };
+      } else if (state === 'edit') {
+        selectItem.value = JSON.parse(JSON.stringify(item));
+      }
     }
     async function deleteProduct(itemId) {
       await apiMethod.adminDeleteProduct(itemId);
       getProduct();
       selectItem.value = {
-        id: '',
+        imagesUrl: [],
       };
     }
     function changeProductState(itemKey) {
@@ -70,79 +58,38 @@ export default {
         products.value = Object.values(res);
       });
     }
-    function openModal() {
-      // console.log(myModal);
-      // productModal.value.show();
-    }
     apiMethod.checkLogin().then(() => {
       getProduct();
     });
-    onMounted(() => {
-      // console.log(productModal.value, myModal);
-    });
     return {
       products,
+      modalState,
       selectItem,
       productModal,
+      modalOpen,
       openProductDetail,
-      newProduct,
       deleteProduct,
-      updateProduct,
       changeProductState,
       clearItem,
-      openModal,
+      getProduct,
     };
   },
 };
 </script>
 <template>
-  <div class="container">
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-      @click="openModal"
-    >
-      Launch demo modal
-    </button>
-
-    <!-- Modal -->
-    <div
-      ref="productModal"
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">...</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-10">
+        <div class="d-flex justify-content-between">
+          <h3>產品列表</h3>
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="openProductDetail('isNew')"
+          >
+            新增產品
+          </button>
         </div>
-      </div>
-    </div>
-    <div class="row row-cols-lg-2 row-cols-1">
-      <div class="col">
         <table class="table mt-4">
           <thead>
             <tr>
@@ -155,7 +102,10 @@ export default {
           </thead>
           <tbody id="productList" v-if="products.length > 0">
             <template v-for="(product, index) in products" :key="product.id">
-              <tr @click="openProductDetail(product.id)">
+              <tr
+                class="adminList__item"
+                @click="openProductDetail('edit', product)"
+              >
                 <td>{{ product.title }}</td>
                 <td width="120">{{ product.origin_price }}</td>
                 <td width="120">{{ product.price }}</td>
@@ -189,13 +139,20 @@ export default {
         <p>
           目前有 <span id="productCount">{{ products.length }}</span> 項產品
         </p>
-        <button type="button" class="btn btn-primary" @click="newProduct">
-          新增產品
-        </button>
       </div>
-      <div class="col">
-        <ProductDetail :select-item="selectItem" @clear-item="clearItem" />
-      </div>
+    </div>
+    <div
+      class="siderBg"
+      :class="{ active: modalOpen }"
+      @click="modalOpen = false"
+    ></div>
+    <div class="siderBox p-5" :class="{ active: modalOpen }">
+      <AdminProductEdit
+        :select-item="selectItem"
+        :modal-state="modalState"
+        @get-product="getProduct"
+        @clear-item="clearItem"
+      />
     </div>
   </div>
 </template>

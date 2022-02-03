@@ -12,7 +12,7 @@ const apiPath = {
   adminPostProduct: `${api.url}/api/${api.path}/admin/product`,
   adminDeleteProduct: `${api.url}/api/${api.path}/admin/product`,
   adminUpdateProduct: `${api.url}/api/${api.path}/admin/product`,
-  imgUpdate: `${api.url}/api/${api.path}/admin/upload`,
+  imgUpload: `${api.url}/api/${api.path}/admin/upload`,
 };
 
 const token = document.cookie.replace(
@@ -66,6 +66,7 @@ const apiMethod = {
       });
   },
   adminPostProduct(productData) {
+    console.log(productData);
     const product = {
       data: {
         ...productData,
@@ -78,7 +79,7 @@ const apiMethod = {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   },
   adminDeleteProduct(itemId) {
@@ -89,7 +90,7 @@ const apiMethod = {
         console.log('刪除成功');
       })
       .catch((err) => {
-        console.log(err.data);
+        console.log(err.response);
       });
   },
   adminUpdateProduct(itemId, productData) {
@@ -106,6 +107,19 @@ const apiMethod = {
       })
       .catch((err) => {
         console.log(err);
+      });
+  },
+  adminImageUpload(file) {
+    const formData = new FormData(); // 產生表單格式
+    formData.append('file-to-upload', file);
+    return axios
+      .post(`${apiPath.imgUpload}`, formData)
+      .then((res) => {
+        console.log(res);
+        return res.data.imageUrl;
+      })
+      .catch((err) => {
+        console.log(err.response);
       });
   },
   turnBackLogin(status) {
