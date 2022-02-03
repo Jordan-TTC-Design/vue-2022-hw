@@ -11,6 +11,8 @@ const apiPath = {
   adminGetProducts: `${api.url}/api/${api.path}/admin/products`,
   adminPostProduct: `${api.url}/api/${api.path}/admin/product`,
   adminDeleteProduct: `${api.url}/api/${api.path}/admin/product`,
+  adminUpdateProduct: `${api.url}/api/${api.path}/admin/product`,
+  imgUpdate: `${api.url}/api/${api.path}/admin/upload`,
 };
 
 const token = document.cookie.replace(
@@ -63,9 +65,14 @@ const apiMethod = {
         console.dir(err.response.status);
       });
   },
-  adminPostProduct(data) {
+  adminPostProduct(productData) {
+    const product = {
+      data: {
+        ...productData,
+      },
+    };
     return axios
-      .post(apiPath.adminPostProduct, data)
+      .post(apiPath.adminPostProduct, product)
       .then((res) => {
         console.log('新增成功');
         console.log(res);
@@ -80,6 +87,22 @@ const apiMethod = {
       .then((res) => {
         console.log(res);
         console.log('刪除成功');
+      })
+      .catch((err) => {
+        console.log(err.data);
+      });
+  },
+  adminUpdateProduct(itemId, productData) {
+    const product = {
+      data: {
+        ...productData,
+      },
+    };
+    return axios
+      .put(`${apiPath.adminUpdateProduct}/${itemId}`, product)
+      .then((res) => {
+        console.log(res);
+        console.log('更新成功');
       })
       .catch((err) => {
         console.log(err);

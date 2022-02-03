@@ -1,3 +1,12 @@
 //預設
+@import 'bootstrap/scss/functions';
+@import './helpers/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap';
+// @import "tailwindcss/base";
+// @import "tailwindcss/components";
+// @import "tailwindcss/utilities";
+
 @import './setting/reset';
 @import './setting/main';
+@import './components/buttom';

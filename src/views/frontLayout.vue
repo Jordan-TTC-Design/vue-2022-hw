@@ -3,7 +3,9 @@ import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <RouterView />
+  <div class="container mx-auto px-4">
+    <RouterView />
+  </div>
 </template>
 
 <style lang="scss"></style>
