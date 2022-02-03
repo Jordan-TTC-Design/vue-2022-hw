@@ -2,8 +2,6 @@ import { fileURLToPath, URL } from 'url';
 
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   resolve: {
@@ -18,4 +16,7 @@ export default defineConfig({
       },
     },
   },
+  // base: '/vue-2022-hw/', // 对应GitHub项目名称
+  // eslint-disable-next-line no-undef
+  base: process.env.NODE_ENV === 'production' ? '/vue-2022-hw/' : './',
 });
