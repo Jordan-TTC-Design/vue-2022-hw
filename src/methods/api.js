@@ -124,7 +124,7 @@ const apiMethod = {
   },
   turnBackLogin(status) {
     if (status === 401) {
-      window.location = 'admin/login';
+      window.location = '#/admin/login';
     }
   },
 };
