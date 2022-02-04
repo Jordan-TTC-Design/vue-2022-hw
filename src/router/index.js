@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
@@ -31,5 +31,13 @@ const router = createRouter({
     },
   ],
 });
-
+//路由跳轉後的頁面一率回頂端
+router.beforeEach(() => {
+  //chrome
+  document.body.scrollTop = 0;
+  //firefox
+  document.documentElement.scrollTop = 0;
+  //safari
+  window.pageYOffset = 0;
+});
 export default router;
