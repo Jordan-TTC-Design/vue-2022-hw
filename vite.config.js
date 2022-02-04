@@ -16,5 +16,5 @@ export default defineConfig({
   //     },
   //   },
   // },
-  base: process.env.NODE_ENV === 'production' ? '/vue-2022-hw/' : './',
+  // base: process.env.NODE_ENV === 'production' ? '/vue-2022-hw/' : './',
 });
