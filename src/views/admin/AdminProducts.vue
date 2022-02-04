@@ -1,20 +1,14 @@
 <script>
 import { ref } from 'vue';
-// eslint-disable-next-line no-unused-vars
-// import Modal from 'bootstrap/js/dist/modal';
 import { apiMethod } from '@/methods/api.js';
 import AdminProductEdit from '@/components/AdminProductEdit.vue';
+
 export default {
   components: {
     AdminProductEdit,
   },
   setup() {
     const products = ref([]);
-    const productModal = ref(null);
-    // let modal = null;
-    // const productModal = ref(new Modal(null));
-    // let productModal = ref(new Modal());
-    // var myModal = new Modal(document.getElementById('exampleModal'));
     let selectItem = ref({
       imagesUrl: [],
     });
@@ -64,9 +58,8 @@ export default {
     return {
       products,
       modalState,
-      selectItem,
-      productModal,
       modalOpen,
+      selectItem,
       openProductDetail,
       deleteProduct,
       changeProductState,
@@ -77,7 +70,13 @@ export default {
 };
 </script>
 <template>
-  <div class="container py-4">
+  <div class="grid grid-cols-12 gap-4 mx-auto">
+    <div class="col-start-2 col-span-10">1</div>
+    <div class="col-start-1 col-span-12 md:col-span-6">2</div>
+    <div class="col-start-1 md:col-start-7 col-span-12 md:col-span-6">3</div>
+    <div class="col-start-1 col-end-7">4</div>
+  </div>
+  <div class="container bg-white">
     <div class="row justify-content-center">
       <div class="col-10">
         <div class="d-flex justify-content-between">
