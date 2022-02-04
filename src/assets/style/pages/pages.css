@@ -1,0 +1,38 @@
+.siderBox{
+  width: 50%;
+  height: 100%;
+  overflow-y: scroll;
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: var(--white);
+  z-index: 999;
+  transition: all 0.3s;
+  transform:translateX(100%);
+}
+.siderBox.active{
+  transform:translateX(0)
+  }
+.siderBg{
+  background-color: var(--bgBlackTrans);
+  height: 100%;
+  width:50% ;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform:translateX(-100%);
+  z-index: 998;
+  transition: all 0.3s;
+}
+.siderBg.active{
+  transform:translateX(0)
+  }
+.adminList__item{
+  background-color: var(--white);
+  transition: all 0.3s;
+  border-bottom: 1px solid var(--gray-line); 
+  cursor: pointer;
+}
+.adminList__item:hover{
+  background-color: var(--bgGrayTrans);
+}

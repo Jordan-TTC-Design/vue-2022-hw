@@ -6,5 +6,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@import './style/setting/base.css';
+@import './style/components/button.css';
+@import './style/pages/pages.css';
+
 /* @import 'base';
 @import 'components'; */
