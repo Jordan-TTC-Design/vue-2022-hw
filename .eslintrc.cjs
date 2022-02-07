@@ -10,6 +10,7 @@ module.exports = {
   ],
   env: {
     'vue/setup-compiler-macros': true,
+    node: true,
   },
   rules: {
     quotes: [2, 'single', { avoidEscape: true }],

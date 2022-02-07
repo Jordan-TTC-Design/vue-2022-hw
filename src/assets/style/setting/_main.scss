@@ -1,0 +1,77 @@
+//字體粗細
+$fw--li: 300;
+$fw--rg: 400;
+$fw--md: 500;
+$fw--bd: 700;
+
+//字體粗細
+$fz--xs: 12px;
+$fz--sm: 14px;
+$fz--rg: 16px;
+$fz--lg: 20px;
+$fz--xl: 48px;
+
+$rounded-top:0.5rem 0.5rem 0 0;
+$rounded-bottom:0 0 0.5rem 0.5rem;
+
+$rounded-top-sm:0.25rem 0.25rem 0 0;
+$rounded-bottom-sm:0 0 0.25rem 0.25rem;
+
+
+$bgBlackTrans:rgba($color: $black, $alpha: 0.6);
+$bgGrayTrans:rgba($color: $gray-line, $alpha: 0.6);
+
+@mixin xl {
+  @media (max-width: 1399.98px) {
+    @content;
+  }
+}
+@mixin lg {
+  @media (max-width: 1199.98px) {
+    @content;
+  }
+}
+@mixin md {
+  @media (max-width: 991.98px) {
+    @content;
+  }
+}
+@mixin sm {
+  @media (max-width: 767.98px) {
+    @content;
+  }
+}
+@mixin xs {
+  @media (max-width: 575.98px) {
+    @content;
+  }
+}
+
+// 陰影
+@mixin shadow-normal {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+}
+@mixin shadow-md {
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.16);
+}
+@mixin shadow-lg {
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.16);
+}
+@mixin shadow-none {
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.16);
+}
+
+// 線
+@mixin border-bottom {
+  border-bottom: 1px solid $gray-line;
+}
+
+
+
+// -------------- 以下是關於這次專案的 -------------- 
+// 背景 hover
+@mixin bg--hover {
+  &:hover {
+    background-color: rgba($color: $gray-light, $alpha: 0.5);
+  }
+}
