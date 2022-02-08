@@ -7,6 +7,6 @@ import { RouterView } from 'vue-router';
 </template>
 
 <style lang="scss">
-// @import '@/assets/base.css';
 @import '@/assets/index.css';
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css');
 </style>

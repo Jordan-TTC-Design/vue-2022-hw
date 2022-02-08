@@ -1,10 +1,10 @@
 <script>
 import { computed, ref } from 'vue';
 import { apiMethod } from '@/methods/api.js';
-import imgUploader from '@/components/imgUploader.vue';
+import ImgUploader from '@/components/admin/ImgUploader.vue';
 export default {
   components: {
-    imgUploader,
+    ImgUploader,
   },
   props: ['selectItem'],
   emits: ['clearItem', 'newProduct'],
@@ -109,7 +109,7 @@ export default {
         </button>
         <button class="btn btn-outline-secondary" type="button">切換</button>
       </div> -->
-      <imgUploader @send-img-url="getUrl" :img-name="'主要圖片'" />
+      <ImgUploader @send-img-url="getUrl" :img-name="'主要圖片'" />
     </div>
     <div class="mb-3">
       <p>多圖</p>
@@ -117,7 +117,7 @@ export default {
         v-for="(img, index) in productItem.imagesUrl"
         :key="`img${index}`"
       >
-        <imgUploader @send-img-url="getUrl" :img-name="index" />
+        <ImgUploader @send-img-url="getUrl" :img-name="index" />
       </template>
       <button
         v-if="

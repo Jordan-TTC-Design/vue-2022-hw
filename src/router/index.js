@@ -20,14 +20,14 @@ const router = createRouter({
       component: () => import('../views/AdminLayout.vue'),
       children: [
         {
-          path: 'login',
-          component: () => import('../views/admin/AdminLogin.vue'),
-        },
-        {
           path: '',
           component: () => import('../views/admin/AdminProducts.vue'),
         },
       ],
+    },
+    {
+      path: '/admin-login',
+      component: () => import('../views/admin/AdminLogin.vue'),
     },
   ],
 });

@@ -1,7 +1,7 @@
 <script>
 import { ref } from 'vue';
 import { apiMethod } from '@/methods/api.js';
-import AdminProductEdit from '@/components/AdminProductEdit.vue';
+import AdminProductEdit from '@/components/admin/AdminProductEdit.vue';
 
 export default {
   components: {
@@ -70,89 +70,81 @@ export default {
 };
 </script>
 <template>
-  <div class="grid grid-cols-12 gap-4 mx-auto">
-    <div class="col-start-2 col-span-10">1</div>
-    <div class="col-start-1 col-span-12 md:col-span-6">2</div>
-    <div class="col-start-1 md:col-start-7 col-span-12 md:col-span-6">3</div>
-    <div class="col-start-1 col-end-7">4</div>
-  </div>
-  <div class="container bg-white">
-    <div class="row justify-content-center">
-      <div class="col-10">
-        <div class="d-flex justify-content-between">
-          <h3>產品列表</h3>
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="openProductDetail('isNew')"
-          >
-            新增產品
-          </button>
-        </div>
-        <table class="table mt-4">
-          <thead>
-            <tr>
-              <th>產品名稱</th>
-              <th width="120">原價</th>
-              <th width="120">售價</th>
-              <th width="150">是否啟用</th>
-              <th width="120">刪除</th>
-            </tr>
-          </thead>
-          <tbody id="productList" v-if="products.length > 0">
-            <template v-for="(product, index) in products" :key="product.id">
-              <tr
-                class="adminList__item"
-                @click="openProductDetail('edit', product)"
-              >
-                <td>{{ product.title }}</td>
-                <td width="120">{{ product.origin_price }}</td>
-                <td width="120">{{ product.price }}</td>
-                <td width="100">
-                  <div
-                    class="switch"
-                    @click.stop="changeProductState(index)"
-                    :class="{ active: product.is_enabled }"
-                  >
-                    <div class="switch__control"></div>
-                    <p class="switch__txt">
-                      {{ product.is_enabled ? '啟用' : '未啟用' }}
-                    </p>
-                  </div>
-                </td>
-                <td width="120">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-danger move deleteBtn"
-                    data-action="remove"
-                    data-id="product.id"
-                    @click.stop="deleteProduct(product.id)"
-                  >
-                    刪除
-                  </button>
-                </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-        <p>
-          目前有 <span id="productCount">{{ products.length }}</span> 項產品
-        </p>
+  <div class="grid grid-cols-12">
+    <div class="col-start-2 col-span-10">
+      <div class="flex justify-content-between">
+        <h3>產品列表</h3>
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="openProductDetail('isNew')"
+        >
+          新增產品
+        </button>
       </div>
+      <table class="table mt-4 w-full">
+        <thead>
+          <tr>
+            <th>產品名稱</th>
+            <th width="120">原價</th>
+            <th width="120">售價</th>
+            <th width="150">是否啟用</th>
+            <th width="120">刪除</th>
+          </tr>
+        </thead>
+        <tbody id="productList" v-if="products.length > 0">
+          <template v-for="(product, index) in products" :key="product.id">
+            <tr
+              class="adminList__item"
+              @click="openProductDetail('edit', product)"
+            >
+              <td>{{ product.title }}</td>
+              <td width="120">{{ product.origin_price }}</td>
+              <td width="120">{{ product.price }}</td>
+              <td width="100">
+                <div
+                  class="switch"
+                  @click.stop="changeProductState(index)"
+                  :class="{ active: product.is_enabled }"
+                >
+                  <div class="switch__control"></div>
+                  <p class="switch__txt">
+                    {{ product.is_enabled ? '啟用' : '未啟用' }}
+                  </p>
+                </div>
+              </td>
+              <td width="120">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger move deleteBtn"
+                  data-action="remove"
+                  data-id="product.id"
+                  @click.stop="deleteProduct(product.id)"
+                >
+                  刪除
+                </button>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+      <p>
+        目前有 <span id="productCount">{{ products.length }}</span> 項產品
+      </p>
     </div>
-    <div
-      class="siderBg"
-      :class="{ active: modalOpen }"
-      @click="modalOpen = false"
-    ></div>
-    <div class="siderBox p-5" :class="{ active: modalOpen }">
-      <AdminProductEdit
-        :select-item="selectItem"
-        :modal-state="modalState"
-        @get-product="getProduct"
-        @clear-item="clearItem"
-      />
-    </div>
+  </div>
+  <div
+    class="siderBg"
+    :class="{ active: modalOpen }"
+    @click="modalOpen = false"
+  ></div>
+  <div class="siderBox" :class="{ active: modalOpen }">
+    <AdminProductEdit
+      :select-item="selectItem"
+      :modal-state="modalState"
+      @get-product="getProduct"
+      @clear-item="clearItem"
+    />
   </div>
 </template>
 <style lang="scss"></style>

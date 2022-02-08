@@ -36,7 +36,7 @@ export default {
 };
 </script>
 <template>
-  <div class="input-group">
+  <div class="p-8 border border-gray-200 rounded">
     <input
       v-show="imgsData.useUrl"
       type="text"
@@ -54,14 +54,14 @@ export default {
     />
     <button
       v-show="!imgsData.useUrl"
-      class="btn btn-outline-secondary"
+      class="border border-gray-200 rounded py-2 px-3 hover:border-gray-30 mr-2"
       type="button"
       @click="upload"
     >
       上傳
     </button>
     <button
-      class="btn btn-outline-secondary"
+      class="border border-gray-200 rounded py-2 px-3 hover:border-gray-300"
       type="button"
       @click="imgsData.useUrl = !imgsData.useUrl"
     >
