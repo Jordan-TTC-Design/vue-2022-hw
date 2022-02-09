@@ -14,9 +14,11 @@ export default {
 </script>
 
 <template>
-  <div class="flex min-h-screen">
-    <AdminMainNav />
-    <div class="px-4 flex-">
+  <div class="flex h-screen relative">
+    <div class="sticky top-0 left-0 h-screen">
+      <AdminMainNav />
+    </div>
+    <div class="flex-1 max-h-screen overflow-y-scroll">
       <RouterView />
     </div>
   </div>

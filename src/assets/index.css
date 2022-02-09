@@ -8,6 +8,7 @@
 
 @import './style/setting/base.css';
 @import './style/components/button.css';
+@import './style/components/nav.css';
 @import './style/pages/pages.css';
 
 /* @import 'base';

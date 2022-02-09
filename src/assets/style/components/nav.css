@@ -1,0 +1,20 @@
+.rowNavItem{
+position: relative;
+padding: 0.5rem 0.75rem;
+}
+.rowNavItem::after{
+  content: '';
+  width: 1.25rem;
+  height: 0rem;
+  border-radius: 0.125rem 0.125rem 0 0;
+  background-color: var(--white);
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform:translateX(-50%);
+  transition: all 0.3s;
+  }
+  .rowNavItem.active::after{
+    background-color: var(--primary);
+  height: 0.25rem;
+  }
