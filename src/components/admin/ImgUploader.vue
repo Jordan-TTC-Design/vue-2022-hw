@@ -26,6 +26,7 @@ export default {
     function upload() {
       console.dir(imgCoverUploader);
       const [file] = imgCoverUploader.value.files;
+      console.log(file);
       apiMethod.adminImageUpload(file).then((url) => {
         console.log(url);
         sendImgUrl(url);
